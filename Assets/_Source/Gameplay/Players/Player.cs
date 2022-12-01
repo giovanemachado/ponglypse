@@ -1,4 +1,5 @@
 using RouteTeamStudio.Core;
+using RouteTeamStudio.Gameplay.Beings;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,13 +13,17 @@ namespace RouteTeamStudio.Gameplay.Players
     {
         [SerializeField] PlayerData _playerData;
 
-        Paddle _paddle;
-        Movement _movement;
+        // Composition
+        Paddle _paddle; // should refactor
+        Movement _movement; // should refactor
+        Being _being;
 
         public override void OnAwake()
         {
             _playerData.BallSpawn = GameObject.Find("BallSpawn").transform; 
-            _playerData.BallsFolder = GameObject.Find("Balls").transform; 
+            _playerData.BallsFolder = GameObject.Find("Balls").transform;
+
+            _being = GetComponent<Being>();
 
             _paddle = gameObject.GetOrAddComponent<Paddle>();
             _movement = gameObject.GetOrAddComponent<Movement>();
@@ -29,10 +34,22 @@ namespace RouteTeamStudio.Gameplay.Players
 
         public override void OnUpdate()
         {
+            _being.OnUpdate();
+
+            if (!_being.IsAlive())
+            {
+                return;
+            }
+
             _paddle.OnUpdate();
 
             UpdateMovement();
             CheckHitBall();
+        }
+
+        public void Damage(int damageAmount)
+        {
+            _being.Damage(damageAmount);
         }
 
         void CheckHitBall()

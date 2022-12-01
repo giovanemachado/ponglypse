@@ -80,6 +80,7 @@ namespace RouteTeamStudio.Gameplay.Players
             }
 
             _lastHitAt = Time.time;
+
             return false;
         }
 
@@ -89,9 +90,10 @@ namespace RouteTeamStudio.Gameplay.Players
            
             if (!ballColliderHit)
             {
-                Debug.Log("no hit");
                 return null;
             }
+
+            _currentBall.Hit();
 
             return ballColliderHit.gameObject.GetComponent<Rigidbody2D>();
         }

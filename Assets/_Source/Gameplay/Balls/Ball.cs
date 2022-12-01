@@ -1,9 +1,12 @@
 using RouteTeamStudio.Core;
+using RouteTeamStudio.Gameplay.Players;
+using RouteTeamStudio.Utility;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 namespace RouteTeamStudio.Gameplay.Balls
 {
@@ -14,15 +17,34 @@ namespace RouteTeamStudio.Gameplay.Balls
         [SerializeField] BallData _ballData;
 
         bool _isStarted = false;
+        float _lastHitAt;
 
-        public override void OnAwake()
+        public override void OnStart()
         {
-            StartCoroutine(AutoDestroy());
+            _lastHitAt = Time.time;
+            GameObject player = GameObject.Find("Player");
+            Physics2D.IgnoreCollision(player.GetComponent<Collider2D>(), GetComponent<Collider2D>());
         }
 
         public override void OnUpdate()
         {
             StartProcess();
+            
+            if (!CheckInCooldown())
+            {
+                OnBallDestroy?.Invoke(this);
+                Destroy(gameObject);
+            }
+        }
+
+        public void Hit()
+        {
+            _lastHitAt = Time.time;
+        }
+
+        void OnCollisionEnter2D(Collision2D collision)
+        {
+            Hit();
         }
 
         void StartProcess()
@@ -38,11 +60,16 @@ namespace RouteTeamStudio.Gameplay.Balls
             _isStarted = true;
         }
 
-        IEnumerator AutoDestroy()
+       
+        bool CheckInCooldown()
         {
-            yield return new WaitForSeconds(_ballData.AutoDestroyTime);
-            OnBallDestroy?.Invoke(this);
-            Destroy(gameObject);
+            if (Timers.CheckInCooldown(_lastHitAt, _ballData.AutoDestroyTime))
+            {
+                return true;
+            }
+            
+            _lastHitAt = Time.time;
+            return false;
         }
     }
 }

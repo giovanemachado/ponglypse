@@ -1,7 +1,11 @@
 using RouteTeamStudio.Core;
+using RouteTeamStudio.Gameplay.Beings;
 using RouteTeamStudio.Gameplay.Players;
 using RouteTeamStudio.Gameplay.Zombies;
+using System;
+using System.Net.NetworkInformation;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace RouteTeamStudio.Commanders
 {
@@ -14,6 +18,9 @@ namespace RouteTeamStudio.Commanders
         protected override void Awake()
         {
             base.Awake();
+
+            Being.OnBeingDie += OnBeingDie;
+
             ExecuteControllerMethod(_player, Method.AWAKE);
             ExecuteControllerMethod(_zombiesManager, Method.AWAKE);
         }
@@ -28,6 +35,18 @@ namespace RouteTeamStudio.Commanders
         {
             ExecuteControllerMethod(_player);
             ExecuteControllerMethod(_zombiesManager);
+        }
+
+        private void OnBeingDie(Being being)
+        {
+            Player playerDead = being.GetComponent<Player>();
+
+            if (!playerDead)
+            {
+                return;
+            }
+            
+            SceneManager.LoadScene("MenuScene");
         }
     }
 }

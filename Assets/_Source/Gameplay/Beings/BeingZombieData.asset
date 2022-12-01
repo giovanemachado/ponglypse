@@ -9,10 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3678ebbc8c31654caecefd6b4dd40b9, type: 3}
-  m_Name: PlayerData
+  m_Script: {fileID: 11500000, guid: b6292b49d32653841b2917fd01faae21, type: 3}
+  m_Name: BeingZombieData
   m_EditorClassIdentifier: 
-  Speed: 5
-  HitPaddleCooldown: 1
-  HitPaddleRange: 2
-  HitStrength: 30
+  MaxHealthPoints: 3
