@@ -6,8 +6,10 @@ using RouteTeamStudio.Utility;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 using UnityEngine.AI;
+using Color = UnityEngine.Color;
 using Random = UnityEngine.Random;
 
 namespace RouteTeamStudio.Gameplay.Zombies
@@ -35,7 +37,7 @@ namespace RouteTeamStudio.Gameplay.Zombies
         {
             _being = GetComponent<Being>();
             _player = GameObject.Find("Player").GetComponent<Player>();
-            GetComponentInChildren<SpriteRenderer>().color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
+            PaintZombie();
         }
 
         public override void OnUpdate()
@@ -103,6 +105,17 @@ namespace RouteTeamStudio.Gameplay.Zombies
         void EnterAndUpdatePursuitState()
         {
             _navMeshAgent.SetDestination(_player.transform.position);
+        }
+
+        void PaintZombie()
+        {
+            SpriteRenderer[] sprites = GetComponentsInChildren<SpriteRenderer>();
+            Color randomColor = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
+
+            foreach (SpriteRenderer sprite in sprites)
+            {
+                sprite.color = randomColor;
+            }
         }
 
         void OnDrawGizmos()
