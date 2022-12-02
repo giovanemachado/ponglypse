@@ -45,6 +45,7 @@ namespace RouteTeamStudio.Gameplay.Players
 
             UpdateMovement();
             CheckHitBall();
+            CheckSpawnNewBall();
         }
 
         public void Damage(int damageAmount)
@@ -57,6 +58,13 @@ namespace RouteTeamStudio.Gameplay.Players
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
                 _paddle.HitBall();
+            }
+        }
+        void CheckSpawnNewBall()
+        {
+            if (Input.GetKeyDown(KeyCode.Mouse1))
+            {
+                _paddle.SpawnNewBall();
             }
         }
 

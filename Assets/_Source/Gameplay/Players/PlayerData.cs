@@ -14,8 +14,10 @@ namespace RouteTeamStudio.Gameplay.Players
         public float HitStrength;
 
         [Header("Ball Spawn")]
+        public float SpawnBallCooldown;
         public GameObject BallPrefab;
         [HideInInspector] public Transform BallSpawn;
         [HideInInspector] public Transform BallsFolder;
+
     }
 }

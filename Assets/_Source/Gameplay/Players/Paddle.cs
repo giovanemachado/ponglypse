@@ -1,6 +1,7 @@
 using RouteTeamStudio.Core;
 using RouteTeamStudio.Gameplay.Balls;
 using RouteTeamStudio.Utility;
+using System;
 using UnityEngine;
 
 namespace RouteTeamStudio.Gameplay.Players
@@ -10,6 +11,7 @@ namespace RouteTeamStudio.Gameplay.Players
         PlayerData _playerData;
 
         float _lastHitAt;
+        float _lastSpawnBallAt;
         int _ballLayer;
 
         bool _thereIsBall;
@@ -37,7 +39,7 @@ namespace RouteTeamStudio.Gameplay.Players
                 return;
             }
 
-            if (CheckInCooldown())
+            if (CheckHitBallCooldown())
             {
                 return;
             }
@@ -50,6 +52,18 @@ namespace RouteTeamStudio.Gameplay.Players
             }
 
             ThrowBall(ballRigidbody2d);
+        }
+
+        public void SpawnNewBall()
+        {
+            if (CheckSpawnBallCooldown())
+            {
+                return;
+            }
+
+            Destroy(_currentBall.gameObject);
+            _thereIsBall = false;
+            SpawnNewBallIfDestroyed();
         }
 
         bool SpawnNewBallIfDestroyed()
@@ -72,7 +86,7 @@ namespace RouteTeamStudio.Gameplay.Players
             _thereIsBall = false;
         }
 
-        bool CheckInCooldown()
+        bool CheckHitBallCooldown()
         {
             if (Timers.CheckInCooldown(_lastHitAt, _playerData.HitPaddleCooldown))
             {
@@ -80,6 +94,18 @@ namespace RouteTeamStudio.Gameplay.Players
             }
 
             _lastHitAt = Time.time;
+
+            return false;
+        }
+
+        bool CheckSpawnBallCooldown()
+        {
+            if (Timers.CheckInCooldown(_lastSpawnBallAt, _playerData.SpawnBallCooldown))
+            {
+                return true;
+            }
+
+            _lastSpawnBallAt = Time.time;
 
             return false;
         }
