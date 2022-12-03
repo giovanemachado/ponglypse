@@ -30,6 +30,13 @@ namespace RouteTeamStudio.Setup
             _audioSource = GetComponent<AudioSource>();
         }
 
+        private void OnDestroy()
+        {
+            Ball.OnBallHit -= OnBallHit;
+            Paddle.OnHitBall -= OnHitBall;
+            Zombie.OnZombieHurt -= OnZombieHurt;
+        }
+
         void OnBallHit()
         {
             _audioSource.volume = 0.7f;

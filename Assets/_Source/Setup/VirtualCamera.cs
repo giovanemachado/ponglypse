@@ -26,6 +26,12 @@ namespace RouteTeamStudio.Setup
             _virtualCamera = GetComponent<CinemachineVirtualCamera>();
         }
 
+        private void OnDestroy()
+        {
+            Paddle.OnHitBall -= OnEventShakeCamera;
+            Player.OnPlayerHurt -= OnEventShakeCamera;
+        }
+
         public override void OnUpdate()
         {
             if (_shakeTimer > 0)

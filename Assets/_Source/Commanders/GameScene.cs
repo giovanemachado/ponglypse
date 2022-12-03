@@ -30,6 +30,11 @@ namespace RouteTeamStudio.Commanders
             ExecuteControllerMethod(_audio, Method.AWAKE);
         }
 
+        private void OnDestroy()
+        {
+            Being.OnBeingDie -= OnBeingDie;
+        }
+
         protected void Start()
         {
             ExecuteControllerMethod(_player, Method.START);

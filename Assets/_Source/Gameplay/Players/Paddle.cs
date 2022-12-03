@@ -29,6 +29,11 @@ namespace RouteTeamStudio.Gameplay.Players
             _ballLayer = LayerMask.GetMask("Ball");
         }
 
+        private void OnDestroy()
+        {
+            Ball.OnBallDestroy -= OnBallDestroy;
+        }
+
         public override void OnUpdate()
         {
             if (_currentBall)

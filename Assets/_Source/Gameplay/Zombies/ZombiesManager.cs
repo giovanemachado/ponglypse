@@ -23,7 +23,8 @@ namespace RouteTeamStudio.Gameplay.Zombies
         [SerializeField] Transform _bloodFolder;
 
         [SerializeField] TextMeshProUGUI _zombieKillsCount;
-        int zombiesKilled = 0;
+        int _zombiesKilled = 0;
+        int _bestScore = 0;
 
         readonly List<Zombie> _zombies = new List<Zombie>();
 
@@ -32,10 +33,17 @@ namespace RouteTeamStudio.Gameplay.Zombies
             Being.OnBeingDie += OnBeingDie;
         }
 
+        private void OnDestroy()
+        {
+            Being.OnBeingDie -= OnBeingDie;
+        }
+
         public override void OnStart()
         {
             SpawnZombies();
             StartCoroutine(SpawnRoutine());
+
+            _bestScore = PlayerPrefs.GetInt("score");
         }
 
         public override void OnUpdate()
@@ -54,8 +62,14 @@ namespace RouteTeamStudio.Gameplay.Zombies
             {
                 return;
             }
-            zombiesKilled++;
-            _zombieKillsCount.text = "Zombies killed: " + zombiesKilled;
+            _zombiesKilled++;
+            _zombieKillsCount.text = "Zombies killed: " + _zombiesKilled;
+
+            if (_zombiesKilled > _bestScore)
+            {
+                PlayerPrefs.SetInt("score", _zombiesKilled);
+            }
+
             int zombieToRemoveIndex = _zombies.FindIndex(currentZombie => currentZombie.GetInstanceID() == zombieDead.GetInstanceID());
 
             GameObject _bloodInst = Instantiate(_blood, _zombies[zombieToRemoveIndex].gameObject.transform);
