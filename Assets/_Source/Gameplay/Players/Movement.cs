@@ -28,7 +28,7 @@ namespace RouteTeamStudio
 
         void FixedUpdate()
         {
-            _rigidbody.MovePosition(_rigidbody.position + new Vector2(horizontal * _playerData.Speed, vertical * _playerData.Speed) * Time.fixedDeltaTime);
+            _rigidbody.velocity = new Vector2(horizontal * _playerData.Speed, vertical * _playerData.Speed);
         }
     }
 }

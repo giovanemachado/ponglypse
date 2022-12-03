@@ -20,3 +20,5 @@ MonoBehaviour:
   BallPrefab: {fileID: 2122602383202679841, guid: 0774bfe846f6d054ca119b1bf2d4ab64, type: 3}
   BallSpawn: {fileID: 0}
   BallsFolder: {fileID: 0}
+  HurtAnimDuration: 0.3
+  AttackAnimDuration: 0.35

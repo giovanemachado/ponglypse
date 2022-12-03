@@ -8,7 +8,10 @@ namespace RouteTeamStudio.Gameplay.Players
 {
     public class Paddle : Controller
     {
+        public static event Action OnHitBall;
         PlayerData _playerData;
+        
+        PlayerAnimatorController _playerAnimatorController;
 
         float _lastHitAt;
         float _lastSpawnBallAt;
@@ -19,6 +22,7 @@ namespace RouteTeamStudio.Gameplay.Players
 
         public override void OnAwake(ScriptableObject dataObject)
         {
+            _playerAnimatorController = GetComponentInChildren<PlayerAnimatorController>();
             Ball.OnBallDestroy += OnBallDestroy;
             _playerData = (PlayerData) dataObject;
             _ballLayer = LayerMask.GetMask("Ball");
@@ -97,6 +101,7 @@ namespace RouteTeamStudio.Gameplay.Players
                 return true;
             }
 
+            _playerAnimatorController.ChangeAnimation(_playerAnimatorController.AttackAnim);
             _lastHitAt = Time.time;
 
             return false;
@@ -139,6 +144,7 @@ namespace RouteTeamStudio.Gameplay.Players
 
         void ThrowBall(Rigidbody2D ballRigidbody2d)
         {
+            OnHitBall?.Invoke();
             ballRigidbody2d.velocity = Vector2.zero;
             ballRigidbody2d.AddForce(GetMouseDirectionNormalized() * _playerData.HitStrength, ForceMode2D.Force);
         }

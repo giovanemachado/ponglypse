@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5196032258137969973}
   - component: {fileID: 6565607799484499188}
   - component: {fileID: 1261934810543935370}
+  - component: {fileID: 6240019558762476312}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -42,8 +43,8 @@ SortingGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 715718336992426190}
   m_Enabled: 1
-  m_SortingLayerID: -1150430455
-  m_SortingLayer: 3
+  m_SortingLayerID: 1408133735
+  m_SortingLayer: 2
   m_SortingOrder: 0
 --- !u!95 &1261934810543935370
 Animator:
@@ -65,6 +66,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &6240019558762476312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 715718336992426190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31d823f02184c4447bc0ea7e8931485b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2161347241547228782
 GameObject:
   m_ObjectHideFlags: 0

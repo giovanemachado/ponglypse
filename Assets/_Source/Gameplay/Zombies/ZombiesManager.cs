@@ -2,6 +2,7 @@ using RouteTeamStudio.Core;
 using RouteTeamStudio.Gameplay.Beings;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -16,6 +17,10 @@ namespace RouteTeamStudio.Gameplay.Zombies
 
         [SerializeField] int _minQuantityToSpawn;
         [SerializeField] int _maxQuantityToSpawn;
+
+        [SerializeField] GameObject _blood;
+        [SerializeField] Transform _bloodFolder;
+        
 
         readonly List<Zombie> _zombies = new List<Zombie>();
 
@@ -48,6 +53,9 @@ namespace RouteTeamStudio.Gameplay.Zombies
             }
 
             int zombieToRemoveIndex = _zombies.FindIndex(currentZombie => currentZombie.GetInstanceID() == zombieDead.GetInstanceID());
+
+            GameObject _bloodInst = Instantiate(_blood, _zombies[zombieToRemoveIndex].gameObject.transform);
+            _bloodInst.transform.SetParent(_bloodFolder);
             Destroy(_zombies[zombieToRemoveIndex].gameObject);
             _zombies.RemoveAt(zombieToRemoveIndex);
         }

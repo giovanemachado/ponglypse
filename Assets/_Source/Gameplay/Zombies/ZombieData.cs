@@ -8,5 +8,9 @@ namespace RouteTeamStudio.Gameplay.Zombies
         public float AttackRange;
         public int AttackDamage;
         public float AttackCooldown;
+
+        [Header("Animations")]
+        public float HurtAnimDuration;
+        public float AttackAnimDuration;
     }
 }

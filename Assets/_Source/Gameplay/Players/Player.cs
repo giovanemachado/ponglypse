@@ -11,12 +11,14 @@ namespace RouteTeamStudio.Gameplay.Players
 {
     public class Player : Controller
     {
+        public static event Action OnPlayerHurt;
         [SerializeField] PlayerData _playerData;
 
         // Composition
         Paddle _paddle; // should refactor
         Movement _movement; // should refactor
         Being _being;
+        PlayerAnimatorController _playerAnimatorController;
 
         public override void OnAwake()
         {
@@ -24,17 +26,21 @@ namespace RouteTeamStudio.Gameplay.Players
             _playerData.BallsFolder = GameObject.Find("Balls").transform;
 
             _being = GetComponent<Being>();
+            _playerAnimatorController = GetComponentInChildren<PlayerAnimatorController>();
 
             _paddle = gameObject.GetOrAddComponent<Paddle>();
             _movement = gameObject.GetOrAddComponent<Movement>();
 
             _paddle.OnAwake(_playerData);
             _movement.OnAwake(_playerData);
+
+            _playerAnimatorController.OnAwake(_playerData, GetComponent<Rigidbody2D>());
         }
 
         public override void OnUpdate()
         {
             _being.OnUpdate();
+            _playerAnimatorController.OnUpdate();
 
             if (!_being.IsAlive())
             {
@@ -49,7 +55,9 @@ namespace RouteTeamStudio.Gameplay.Players
 
         public void Damage(int damageAmount)
         {
-            _being.Damage(damageAmount);
+            _being.Damage(damageAmount); 
+            OnPlayerHurt?.Invoke();
+            _playerAnimatorController.ChangeAnimation(_playerAnimatorController.HurtAnim);
         }
 
         void CheckHitBall()

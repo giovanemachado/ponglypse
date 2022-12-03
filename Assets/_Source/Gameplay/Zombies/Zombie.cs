@@ -25,6 +25,7 @@ namespace RouteTeamStudio.Gameplay.Zombies
         // Composition
         Being _being;
         NavMeshAgent _navMeshAgent;
+        ZombieAnimatorController _zombieAnimatorController;
 
         private void Awake()
         {
@@ -37,6 +38,8 @@ namespace RouteTeamStudio.Gameplay.Zombies
         {
             _being = GetComponent<Being>();
             _player = GameObject.Find("Player").GetComponent<Player>();
+            _zombieAnimatorController = GetComponentInChildren<ZombieAnimatorController>();
+            _zombieAnimatorController.OnAwake(_zombieData);
             PaintZombie();
         }
 
@@ -44,6 +47,7 @@ namespace RouteTeamStudio.Gameplay.Zombies
         {
             StartProcess();
             _being.OnUpdate();
+            _zombieAnimatorController.OnUpdate();
 
             if (!_being.IsAlive())
             {
@@ -72,6 +76,8 @@ namespace RouteTeamStudio.Gameplay.Zombies
                 return true;
             }
 
+            _zombieAnimatorController.ChangeAnimation(_zombieAnimatorController.AttackAnim);
+
             _lastAttackAt = Time.time;
 
             return false;
@@ -82,6 +88,7 @@ namespace RouteTeamStudio.Gameplay.Zombies
             if (collision.gameObject.CompareTag("Ball"))
             {
                 _being.Damage(1);
+                _zombieAnimatorController.ChangeAnimation(_zombieAnimatorController.HurtAnim);
             }
         }
 

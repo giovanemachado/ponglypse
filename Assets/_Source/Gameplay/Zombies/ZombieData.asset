@@ -15,3 +15,5 @@ MonoBehaviour:
   AttackRange: 1.5
   AttackDamage: 1
   AttackCooldown: 1
+  HurtAnimDuration: 0.2
+  AttackAnimDuration: 0.3

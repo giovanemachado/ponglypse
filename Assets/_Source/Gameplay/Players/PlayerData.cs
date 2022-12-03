@@ -19,5 +19,8 @@ namespace RouteTeamStudio.Gameplay.Players
         [HideInInspector] public Transform BallSpawn;
         [HideInInspector] public Transform BallsFolder;
 
+        [Header("Animations")]
+        public float HurtAnimDuration;
+        public float AttackAnimDuration;
     }
 }
