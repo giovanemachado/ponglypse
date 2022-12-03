@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5196032258137969973}
   - component: {fileID: 6565607799484499188}
+  - component: {fileID: 1261934810543935370}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -41,9 +42,29 @@ SortingGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 715718336992426190}
   m_Enabled: 1
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1150430455
+  m_SortingLayer: 3
   m_SortingOrder: 0
+--- !u!95 &1261934810543935370
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 715718336992426190}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0f8a76705691b5449a4c83a18a6fd9f9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2161347241547228782
 GameObject:
   m_ObjectHideFlags: 0
@@ -221,8 +242,8 @@ NavMeshAgent:
   m_GameObject: {fileID: 3362372984003535299}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.7
-  m_Speed: 1
+  m_Radius: 0.9
+  m_Speed: 1.4
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120

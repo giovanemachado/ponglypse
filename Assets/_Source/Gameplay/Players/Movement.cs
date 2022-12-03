@@ -11,17 +11,24 @@ namespace RouteTeamStudio
     public class Movement : Controller
     {
         PlayerData _playerData;
-        Rigidbody2D _rigidbody2;
-
+        Rigidbody2D _rigidbody;
+        float horizontal = 0;
+        float vertical = 0;
         public override void OnAwake(ScriptableObject dataObject)
         {
             _playerData = (PlayerData) dataObject;
-            _rigidbody2 = GetComponent<Rigidbody2D>();
+            _rigidbody = GetComponent<Rigidbody2D>();
         }
 
-        public void Move(float horizontal, float vertical)
+        private void Update()
         {
-            _rigidbody2.velocity = new Vector2(horizontal * _playerData.Speed, vertical * _playerData.Speed);
+            horizontal = Input.GetAxisRaw("Horizontal");
+            vertical = Input.GetAxisRaw("Vertical");
+        }
+
+        void FixedUpdate()
+        {
+            _rigidbody.MovePosition(_rigidbody.position + new Vector2(horizontal * _playerData.Speed, vertical * _playerData.Speed) * Time.fixedDeltaTime);
         }
     }
 }

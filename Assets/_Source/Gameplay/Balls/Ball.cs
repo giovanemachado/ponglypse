@@ -18,12 +18,19 @@ namespace RouteTeamStudio.Gameplay.Balls
 
         bool _isStarted = false;
         float _lastHitAt;
+        Rigidbody2D _rigidbody2D;
+        int _increasedVelocityTimes = 0;
+
+        public override void OnAwake()
+        {
+            _rigidbody2D = GetComponent<Rigidbody2D>();
+            GameObject player = GameObject.Find("Player");
+            Physics2D.IgnoreCollision(player.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+        }
 
         public override void OnStart()
         {
             _lastHitAt = Time.time;
-            GameObject player = GameObject.Find("Player");
-            Physics2D.IgnoreCollision(player.GetComponent<Collider2D>(), GetComponent<Collider2D>());
         }
 
         public override void OnUpdate()
@@ -40,11 +47,23 @@ namespace RouteTeamStudio.Gameplay.Balls
         public void Hit()
         {
             _lastHitAt = Time.time;
+
         }
 
         void OnCollisionEnter2D(Collision2D collision)
         {
             Hit();
+            
+            if (_increasedVelocityTimes < 5)
+            {
+                if (!_rigidbody2D)
+                {
+                    return;
+                }
+
+                _rigidbody2D.velocity += Vector2.one / 10;
+                _increasedVelocityTimes++;
+            }
         }
 
         void StartProcess()

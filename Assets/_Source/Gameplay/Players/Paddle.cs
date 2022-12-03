@@ -61,7 +61,11 @@ namespace RouteTeamStudio.Gameplay.Players
                 return;
             }
 
-            Destroy(_currentBall.gameObject);
+            if (_currentBall)
+            {
+                Destroy(_currentBall.gameObject);
+            }
+
             _thereIsBall = false;
             SpawnNewBallIfDestroyed();
         }

@@ -43,7 +43,6 @@ namespace RouteTeamStudio.Gameplay.Players
 
             _paddle.OnUpdate();
 
-            UpdateMovement();
             CheckHitBall();
             CheckSpawnNewBall();
         }
@@ -66,14 +65,6 @@ namespace RouteTeamStudio.Gameplay.Players
             {
                 _paddle.SpawnNewBall();
             }
-        }
-
-        void UpdateMovement()
-        {
-            float horizontal = Input.GetAxisRaw("Horizontal");
-            float vertical = Input.GetAxisRaw("Vertical");
-
-            _movement.Move(horizontal, vertical);
         }
 
         void OnDrawGizmos()
