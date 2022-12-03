@@ -2,6 +2,7 @@ using RouteTeamStudio.Core;
 using RouteTeamStudio.Gameplay.Beings;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -20,7 +21,9 @@ namespace RouteTeamStudio.Gameplay.Zombies
 
         [SerializeField] GameObject _blood;
         [SerializeField] Transform _bloodFolder;
-        
+
+        [SerializeField] TextMeshProUGUI _zombieKillsCount;
+        int zombiesKilled = 0;
 
         readonly List<Zombie> _zombies = new List<Zombie>();
 
@@ -51,7 +54,8 @@ namespace RouteTeamStudio.Gameplay.Zombies
             {
                 return;
             }
-
+            zombiesKilled++;
+            _zombieKillsCount.text = "Zombies killed: " + zombiesKilled;
             int zombieToRemoveIndex = _zombies.FindIndex(currentZombie => currentZombie.GetInstanceID() == zombieDead.GetInstanceID());
 
             GameObject _bloodInst = Instantiate(_blood, _zombies[zombieToRemoveIndex].gameObject.transform);

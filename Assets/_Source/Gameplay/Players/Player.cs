@@ -13,12 +13,15 @@ namespace RouteTeamStudio.Gameplay.Players
     {
         public static event Action OnPlayerHurt;
         [SerializeField] PlayerData _playerData;
+        [SerializeField] BarsManager _barsManager;
 
         // Composition
         Paddle _paddle; // should refactor
         Movement _movement; // should refactor
         Being _being;
         PlayerAnimatorController _playerAnimatorController;
+
+        bool _barReady = false;
 
         public override void OnAwake()
         {
@@ -28,7 +31,7 @@ namespace RouteTeamStudio.Gameplay.Players
             _being = GetComponent<Being>();
             _playerAnimatorController = GetComponentInChildren<PlayerAnimatorController>();
 
-            _paddle = gameObject.GetOrAddComponent<Paddle>();
+            _paddle = GetComponent<Paddle>();
             _movement = gameObject.GetOrAddComponent<Movement>();
 
             _paddle.OnAwake(_playerData);
@@ -40,6 +43,13 @@ namespace RouteTeamStudio.Gameplay.Players
         public override void OnUpdate()
         {
             _being.OnUpdate();
+
+            if (!_barReady)
+            {
+                _barsManager.SetMaxValue(_barsManager.HealthSlider, _being.CurrentHP);
+                _barReady = true;
+            }
+
             _playerAnimatorController.OnUpdate();
 
             if (!_being.IsAlive())
@@ -55,7 +65,8 @@ namespace RouteTeamStudio.Gameplay.Players
 
         public void Damage(int damageAmount)
         {
-            _being.Damage(damageAmount); 
+            _being.Damage(damageAmount);
+            _barsManager.UpdateValue(_barsManager.HealthSlider, _being.CurrentHP);
             OnPlayerHurt?.Invoke();
             _playerAnimatorController.ChangeAnimation(_playerAnimatorController.HurtAnim);
         }

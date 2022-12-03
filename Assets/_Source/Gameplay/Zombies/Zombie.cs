@@ -16,7 +16,10 @@ namespace RouteTeamStudio.Gameplay.Zombies
 {
     public class Zombie : Controller
     {
+        public static event Action OnZombieHurt;
+
         [SerializeField] ZombieData _zombieData;
+        [SerializeField] SpriteRenderer[] spritesToPaint;
 
         Player _player;
         float _lastAttackAt;
@@ -40,6 +43,7 @@ namespace RouteTeamStudio.Gameplay.Zombies
             _player = GameObject.Find("Player").GetComponent<Player>();
             _zombieAnimatorController = GetComponentInChildren<ZombieAnimatorController>();
             _zombieAnimatorController.OnAwake(_zombieData);
+            _navMeshAgent.speed = Random.Range(_zombieData.MinRandomSpeed, _zombieData.MaxRandomSpeed);
             PaintZombie();
         }
 
@@ -87,8 +91,9 @@ namespace RouteTeamStudio.Gameplay.Zombies
         {
             if (collision.gameObject.CompareTag("Ball"))
             {
-                _being.Damage(1);
+                OnZombieHurt?.Invoke();
                 _zombieAnimatorController.ChangeAnimation(_zombieAnimatorController.HurtAnim);
+                _being.Damage(1);
             }
         }
 
@@ -116,10 +121,9 @@ namespace RouteTeamStudio.Gameplay.Zombies
 
         void PaintZombie()
         {
-            SpriteRenderer[] sprites = GetComponentsInChildren<SpriteRenderer>();
             Color randomColor = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
 
-            foreach (SpriteRenderer sprite in sprites)
+            foreach (SpriteRenderer sprite in spritesToPaint)
             {
                 sprite.color = randomColor;
             }

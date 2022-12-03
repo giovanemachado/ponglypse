@@ -13,6 +13,7 @@ namespace RouteTeamStudio.Gameplay.Balls
     public class Ball : Controller
     {
         public static event Action<Ball> OnBallDestroy;
+        public static event Action OnBallHit;
 
         [SerializeField] BallData _ballData;
 
@@ -47,7 +48,7 @@ namespace RouteTeamStudio.Gameplay.Balls
         public void Hit()
         {
             _lastHitAt = Time.time;
-
+            OnBallHit?.Invoke();
         }
 
         void OnCollisionEnter2D(Collision2D collision)

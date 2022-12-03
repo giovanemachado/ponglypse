@@ -16,6 +16,7 @@ namespace RouteTeamStudio.Commanders
         [SerializeField] Player _player;
         [SerializeField] ZombiesManager _zombiesManager;
         [SerializeField] VirtualCamera _virtualCamera;
+        [SerializeField] Audio _audio;
 
         protected override void Awake()
         {
@@ -26,6 +27,7 @@ namespace RouteTeamStudio.Commanders
             ExecuteControllerMethod(_player, Method.AWAKE);
             ExecuteControllerMethod(_zombiesManager, Method.AWAKE);
             ExecuteControllerMethod(_virtualCamera, Method.AWAKE);
+            ExecuteControllerMethod(_audio, Method.AWAKE);
         }
 
         protected void Start()
@@ -33,6 +35,7 @@ namespace RouteTeamStudio.Commanders
             ExecuteControllerMethod(_player, Method.START);
             ExecuteControllerMethod(_zombiesManager, Method.START);
             ExecuteControllerMethod(_virtualCamera, Method.START);
+            ExecuteControllerMethod(_audio, Method.START);
         }
 
         protected void Update()
@@ -40,6 +43,7 @@ namespace RouteTeamStudio.Commanders
             ExecuteControllerMethod(_player);
             ExecuteControllerMethod(_zombiesManager);
             ExecuteControllerMethod(_virtualCamera);
+            ExecuteControllerMethod(_audio);
         }
 
         private void OnBeingDie(Being being)

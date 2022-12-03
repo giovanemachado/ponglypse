@@ -1,5 +1,6 @@
 using RouteTeamStudio.Core;
 using RouteTeamStudio.Gameplay.Balls;
+using RouteTeamStudio.Gameplay.Beings;
 using RouteTeamStudio.Utility;
 using System;
 using UnityEngine;
@@ -22,8 +23,8 @@ namespace RouteTeamStudio.Gameplay.Players
 
         public override void OnAwake(ScriptableObject dataObject)
         {
-            _playerAnimatorController = GetComponentInChildren<PlayerAnimatorController>();
             Ball.OnBallDestroy += OnBallDestroy;
+            _playerAnimatorController = GetComponentInChildren<PlayerAnimatorController>();
             _playerData = (PlayerData) dataObject;
             _ballLayer = LayerMask.GetMask("Ball");
         }
@@ -113,7 +114,7 @@ namespace RouteTeamStudio.Gameplay.Players
             {
                 return true;
             }
-
+            
             _lastSpawnBallAt = Time.time;
 
             return false;

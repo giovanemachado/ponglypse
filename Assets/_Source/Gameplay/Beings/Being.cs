@@ -11,6 +11,7 @@ namespace RouteTeamStudio.Gameplay.Beings
         public static event Action<Being> OnBeingDie;
 
         [SerializeField] BeingData _beingData;
+        public int CurrentHP => _currentHP;
         int _currentHP;
         bool _isStarted = false;
 
