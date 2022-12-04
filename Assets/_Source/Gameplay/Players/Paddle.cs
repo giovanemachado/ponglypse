@@ -1,6 +1,5 @@
 using RouteTeamStudio.Core;
 using RouteTeamStudio.Gameplay.Balls;
-using RouteTeamStudio.Gameplay.Beings;
 using RouteTeamStudio.Utility;
 using System;
 using UnityEngine;
