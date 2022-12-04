@@ -12,15 +12,15 @@ namespace RouteTeamStudio.Gameplay.Balls
 
         [SerializeField] BallData _ballData;
 
-        bool _isStarted = false;
-        float _lastHitAt;
         Rigidbody2D _rigidbody2D;
+        float _lastHitAt;
         int _increasedVelocityTimes = 0;
+        bool _isStarted = false;
 
         public override void OnAwake()
         {
-            _rigidbody2D = GetComponent<Rigidbody2D>();
             GameObject player = GameObject.Find("Player");
+            _rigidbody2D = GetComponent<Rigidbody2D>();
             Physics2D.IgnoreCollision(player.GetComponent<Collider2D>(), GetComponent<Collider2D>());
         }
 
@@ -75,7 +75,6 @@ namespace RouteTeamStudio.Gameplay.Balls
             _isStarted = true;
         }
 
-       
         bool CheckInCooldown()
         {
             if (Timers.CheckInCooldown(_lastHitAt, _ballData.AutoDestroyTime))

@@ -12,6 +12,7 @@ namespace RouteTeamStudio.Setup
         [Header("Camera shake effect")]
         [SerializeField] float _duration;
         [SerializeField] float _intensity;
+
         float _startingIntensity;
         float _shakeTimer;
         float _shakeTimerTotal;
@@ -59,11 +60,6 @@ namespace RouteTeamStudio.Setup
             _startingIntensity = _intensity;
             _shakeTimerTotal = _duration;
             _shakeTimer = _duration;
-        }
-
-        void OnEventShakeCamera(Being _)
-        {
-            Shake();
         }
 
         void OnEventShakeCamera()

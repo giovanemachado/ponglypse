@@ -14,12 +14,13 @@ using Random = UnityEngine.Random;
 
 namespace RouteTeamStudio.Gameplay.Zombies
 {
+    [RequireComponent(typeof(Being), typeof(NavMeshAgent), typeof(ZombieAnimatorController))]
     public class Zombie : Controller
     {
         public static event Action OnZombieHurt;
 
         [SerializeField] ZombieData _zombieData;
-        [SerializeField] SpriteRenderer[] spritesToPaint;
+        [SerializeField] SpriteRenderer[] _spritesToPaint;
 
         Player _player;
         float _lastAttackAt;
@@ -123,7 +124,7 @@ namespace RouteTeamStudio.Gameplay.Zombies
         {
             Color randomColor = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
 
-            foreach (SpriteRenderer sprite in spritesToPaint)
+            foreach (SpriteRenderer sprite in _spritesToPaint)
             {
                 sprite.color = randomColor;
             }

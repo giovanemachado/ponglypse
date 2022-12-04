@@ -7,7 +7,6 @@ namespace RouteTeamStudio.Commanders
 {
     public class MenuScene : Commander
     {
-        int _bestScore = 0;
         [SerializeField] TextMeshProUGUI _bestScoreText;
 
         public void PlayGame()
@@ -20,13 +19,20 @@ namespace RouteTeamStudio.Commanders
             Application.Quit();
         }
 
-        private void Start()
+        protected override void Start()
         {
-            _bestScore = PlayerPrefs.GetInt("score");
+            base.Start();
 
-            if (_bestScore > 0)
+            ShowBestScore();
+        }
+
+        void ShowBestScore()
+        {
+            int bestScore = PlayerPrefs.GetInt("score");
+
+            if (bestScore > 0)
             {
-                _bestScoreText.text = "Best score: " + _bestScore;
+                _bestScoreText.text = "Best score: " + bestScore;
                 _bestScoreText.gameObject.SetActive(true);
             }
         }

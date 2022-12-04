@@ -392,8 +392,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _healthSlider: {fileID: 1242148933}
-  _hitBallSlider: {fileID: 0}
-  _ballSlider: {fileID: 0}
 --- !u!4 &151773270 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7824166903139141221, guid: df3933c6f6c0a7942aca979834c89ac2, type: 3}
@@ -3360,10 +3358,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8746a824964598340849607b098b8fe6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: 1331120495}
-  _zombiesManager: {fileID: 230933166}
-  _virtualCamera: {fileID: 691544932}
-  _audio: {fileID: 549739949}
+  controllers:
+  - {fileID: 1331120495}
+  - {fileID: 230933166}
+  - {fileID: 691544932}
+  - {fileID: 549739949}
 --- !u!1 &1079617598
 GameObject:
   m_ObjectHideFlags: 0
@@ -4037,6 +4036,7 @@ GameObject:
   - component: {fileID: 1331120499}
   - component: {fileID: 1331120495}
   - component: {fileID: 1331120498}
+  - component: {fileID: 1331120501}
   - component: {fileID: 1331120500}
   m_Layer: 0
   m_Name: Player
@@ -4076,6 +4076,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerData: {fileID: 11400000, guid: 21413d070bfcd0f4f9fd42523ce785ad, type: 2}
+  _ballSpawn: {fileID: 1056002396}
+  _ballFolder: {fileID: 754839912}
   _barsManager: {fileID: 90671801}
 --- !u!50 &1331120497
 Rigidbody2D:
@@ -4138,6 +4140,18 @@ BoxCollider2D:
   m_Size: {x: 1.1941013, y: 2.9798353}
   m_EdgeRadius: 0
 --- !u!114 &1331120500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1331120493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92ff3acff944ef441b84742a27002e96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1331120501
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

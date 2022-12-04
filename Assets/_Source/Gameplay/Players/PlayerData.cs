@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace RouteTeamStudio.Gameplay.Players
 {
-    [CreateAssetMenu(fileName = "PlayerData", menuName = "Players/PlayerData")]
+    [CreateAssetMenu(fileName = "PlayerData", menuName = "DataObjects/PlayerData")]
     public class PlayerData : ScriptableObject
     {
         [Header("Player")]
